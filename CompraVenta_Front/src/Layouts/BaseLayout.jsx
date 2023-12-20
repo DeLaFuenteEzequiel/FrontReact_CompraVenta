@@ -2,10 +2,8 @@ import { Navigate } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
 const BaseLayout = (props) => {
-    // Verificar si el usuario está autenticado
     const isAuthenticated = !!localStorage.getItem('jwt');
-
-    // Redirigir al componente de inicio de sesión si no está autenticado
+    
     if (!isAuthenticated) {
         return <Navigate to="/" />;
     }

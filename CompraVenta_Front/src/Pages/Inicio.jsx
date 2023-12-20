@@ -16,8 +16,12 @@ const Inicio = ({ userInfo }) => {
         <div>
           <p>Nombre de usuario: {userInfo.nombreUsuario}</p>
           <p>Correo Electrónico: {userInfo.correoElectronico}</p>
-          <p>Numero registro: {userInfo.registro}</p>
-          {/* Agrega más campos según la estructura de tu objeto de usuario */}
+          <p>
+            {userInfo.registro !== 0
+              ? 'Martillero Verificado'
+              : 'Cliente'}
+          </p>
+
         </div>
       )}
       <Button variant="danger" onClick={logout}>

@@ -14,17 +14,13 @@ const Login = (props) => {
 
             if (rsp?.token) {
                 localStorage.setItem('jwt', rsp.token);
-
-                // Almacena el nuevo userId antes de cambiar el estado o redirigir
                 localStorage.setItem('userId', rsp.userId);
-
                 setSuccess(true);
                 props.setIsLoged(true);
 
                 try {
-                    // Asegúrate de que el userId esté definido antes de llamar a getUserById
                     const userData = await getUserById(rsp.userId);
-                    props.setUserInfo(userData); // Usa props.setUserInfo en lugar de setUserInfo directamente
+                    props.setUserInfo(userData);
                     return <Navigate to="/inicio" />;
                 } catch (error) {
                     console.error('Error al obtener la información del usuario:', error);
@@ -64,7 +60,7 @@ const Login = (props) => {
                     className="w-100 mt-3"
                     onClick={submitHandler}
                 >
-                    Ingresar
+                Ingresar
                 </Button>
             </Form>
         </section>
