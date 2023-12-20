@@ -3,15 +3,22 @@ const backendurl = "http://localhost:5059/api/";
 
 export async function POST(url, request) {
     try {
-        const response = await fetch(`${backendurl}${url}`, {
+        const requestOptions = {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}` || ''
             },
-            body: JSON.stringify(request)
-        });
+            body: JSON.stringify(request),
+        };
+
+        // Agrega la autorización solo si hay un token almacenado
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            requestOptions.headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`${backendurl}${url}`, requestOptions);
 
         return await response.json();
     } catch (error) {
@@ -19,6 +26,7 @@ export async function POST(url, request) {
         throw error;
     }
 }
+
 
 export async function GET(url, request = null) {
     try {

@@ -1,8 +1,8 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import { useEffect, useState } from "react";
-import BaseLayout from './Layouts/BaseLayout.jsx';
-import Users from "./Pages/Users.jsx";
+import Inicio from "./Pages/Inicio.jsx";
+import BaseLayout from "./layouts/BaseLayout.jsx";
 
 const App = () => {
     const [isLoged, setIsLoged] = useState(false);
@@ -18,12 +18,12 @@ const App = () => {
             <Routes>
                 <Route
                     path="/"
-                    element={isLoged ? <Navigate to="/users" /> : <Login setIsLoged={setIsLoged} />}
+                    element={isLoged ? <Navigate to="/inicio" /> : <Login setIsLoged={setIsLoged} />}
                 />
                 {isLoged && (
                     <Route
-                        path="/users"
-                        element={<BaseLayout children={<Users />} />}
+                        path="/inicio"
+                        element={<BaseLayout children={<Inicio />} />}
                     />
                 )}
             </Routes>

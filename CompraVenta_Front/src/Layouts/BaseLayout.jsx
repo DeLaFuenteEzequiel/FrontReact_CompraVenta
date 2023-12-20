@@ -15,8 +15,9 @@ const BaseLayout = (props) => {
                 {/* Mostrar enlaces solo si el usuario está autenticado */}
                 {isAuthenticated && (
                     <>
-                        <Link to='/users' replace={true}>Buscar Usuarios</Link>
-                        <Link to='/createUser' replace={true}>Crear Usuarios</Link>
+                         <Link to='/publicarPropiedad' replace={true}>Publicar Propiedad</Link>
+                        <Link to='/propiedades' replace={true}>Propiedades a la Venta</Link>
+                        <Link to='/propiedades' replace={true}>Mis Propiedades</Link>
                     </>
                 )}
             </menu>
