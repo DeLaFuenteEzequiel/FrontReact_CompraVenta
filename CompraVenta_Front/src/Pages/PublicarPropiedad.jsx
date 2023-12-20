@@ -5,9 +5,10 @@ const PublicarPropiedad = () => {
     const [formData, setFormData] = useState({
         titulo: '',
         descripcion: '',
-        metrosCuadrados: 0,
-        ambientes: 0,
-        valor: 0,
+        metrosCuadrados: '',
+        ambientes: '',
+        valor: '',
+        registro: '', 
     });
 
     const handleChange = (e) => {
@@ -49,6 +50,10 @@ const PublicarPropiedad = () => {
                 <div className="mb-3">
                     <label htmlFor="valor" className="form-label">Valor</label>
                     <input type="number" className="form-control" id="valor" name="valor" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="numeroRegistro" className="form-label">Número de Registro</label>
+                    <input type="text" className="form-control" id="registro" name="registro" onChange={handleChange} />
                 </div>
                 <button type="button" className="btn btn-primary" onClick={submitHandler}>Publicar</button>
             </form>

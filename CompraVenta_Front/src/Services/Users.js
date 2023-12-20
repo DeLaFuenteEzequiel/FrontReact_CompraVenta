@@ -13,11 +13,16 @@ export const searchUsers = async (searchParams) => {
     return response;
 }
 
+
 export const getUserById = async (userId) => {
     let url = `usuarios/${userId}`;
+    console.log('URL de la solicitud:', url); // Agrega este console.log
     let response = await GET(url);
+
     return response;
-};
+  };
+
+
 
 export const deleteUser = async (userId) => {
     let url = `usuarios/${userId}`;

@@ -2,26 +2,40 @@ import { useState } from 'react';
 import { LogInRequest } from '../Services/Session.js';
 import { Navigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
+import { getUserById } from '../Services/Users.js';
 
 const Login = (props) => {
     const [formData, setFormData] = useState({});
     const [success, setSuccess] = useState(false);
 
     const submitHandler = async () => {
-       
+        try {
             let rsp = await LogInRequest(formData);
 
             if (rsp?.token) {
                 localStorage.setItem('jwt', rsp.token);
+
+                // Almacena el nuevo userId antes de cambiar el estado o redirigir
+                localStorage.setItem('userId', rsp.userId);
+
                 setSuccess(true);
                 props.setIsLoged(true);
-                // Utiliza la redirección con Navigate directamente aquí
-                props.navigate('/inicio');
+
+                try {
+                    // Asegúrate de que el userId esté definido antes de llamar a getUserById
+                    const userData = await getUserById(rsp.userId);
+                    props.setUserInfo(userData); // Usa props.setUserInfo en lugar de setUserInfo directamente
+                    return <Navigate to="/inicio" />;
+                } catch (error) {
+                    console.error('Error al obtener la información del usuario:', error);
+                }
             } else {
                 window.alert('Error en las credenciales!');
             }
-       
-    }
+        } catch (error) {
+            console.error('Error en la autenticación:', error);
+        }
+    };
 
     return (
         <section className="w-100 h-100 d-flex align-items-center justify-content-center">
