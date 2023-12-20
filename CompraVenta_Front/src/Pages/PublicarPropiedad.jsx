@@ -1,31 +1,55 @@
 import React, { useState } from 'react';
-
+import { publicarPropiedad } from '../Services/PropiedadesService';
 
 const PublicarPropiedad = () => {
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        titulo: '',
+        descripcion: '',
+        metrosCuadrados: 0,
+        ambientes: 0,
+        valor: 0,
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const submitHandler = async () => {
         try {
             // Realiza la lógica para publicar la propiedad en tu backend
-            await PublicarPropiedadRequest(formData);
+            await publicarPropiedad(formData);
             // Puedes redirigir o mostrar un mensaje de éxito aquí
+            console.log('Propiedad publicada exitosamente');
         } catch (error) {
             console.error('Error al publicar la propiedad:', error);
             // Puedes mostrar un mensaje de error aquí
         }
-    }
+    };
 
     return (
         <div className="container mt-5">
             <h1>Publicar Propiedad</h1>
             <form>
-                {/* Aquí debes agregar los campos y lógica del formulario según tus necesidades */}
-                {/* Ejemplo: */}
                 <div className="mb-3">
-                    <label htmlFor="nombrePropiedad" className="form-label">Nombre de la Propiedad</label>
-                    <input type="text" className="form-control" id="nombrePropiedad" onChange={e => setFormData({ ...formData, nombrePropiedad: e.target.value })} />
+                    <label htmlFor="titulo" className="form-label">Título</label>
+                    <input type="text" className="form-control" id="titulo" name="titulo" onChange={handleChange} />
                 </div>
-                {/* Agrega más campos según tus necesidades */}
+                <div className="mb-3">
+                    <label htmlFor="descripcion" className="form-label">Descripción</label>
+                    <textarea className="form-control" id="descripcion" name="descripcion" onChange={handleChange}></textarea>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="metrosCuadrados" className="form-label">Metros Cuadrados</label>
+                    <input type="number" className="form-control" id="metrosCuadrados" name="metrosCuadrados" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="ambientes" className="form-label">Ambientes</label>
+                    <input type="number" className="form-control" id="ambientes" name="ambientes" onChange={handleChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="valor" className="form-label">Valor</label>
+                    <input type="number" className="form-control" id="valor" name="valor" onChange={handleChange} />
+                </div>
                 <button type="button" className="btn btn-primary" onClick={submitHandler}>Publicar</button>
             </form>
         </div>

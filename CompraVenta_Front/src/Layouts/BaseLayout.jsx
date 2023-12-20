@@ -13,7 +13,7 @@ const BaseLayout = (props) => {
     return (
         <div className="w-[100vw]">
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/inicio">Mi Aplicación</Navbar.Brand>
+                <Navbar.Brand href="/inicio">Inicio</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/publicarPropiedad">Publicar Propiedad</Nav.Link>
                     <Nav.Link href="/propiedades">Propiedades a la Venta</Nav.Link>

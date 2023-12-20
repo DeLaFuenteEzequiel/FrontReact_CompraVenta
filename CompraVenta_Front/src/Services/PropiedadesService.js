@@ -1,7 +1,7 @@
 import { POST, GET, DELETE, PATCH } from './Httpr.js';
 
 export const publicarPropiedad = async (propiedadData) => {
-    let url = '/propiedades';
+    let url = 'propiedades';
     let response = await POST(url, propiedadData);
     return response;
 }
