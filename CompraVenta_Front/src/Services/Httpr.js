@@ -1,27 +1,7 @@
-const backendurl = "http://192.168.0.194:5059/api/";
+const backendurl = "http://localhost:5059/api/";
 
-export async function postUser(file) {
-    try {
-        let data = new FormData();
-        data.append('file', file);
 
-        const response = await fetch(`${backendurl}Usuarios`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}` || ''
-            },
-            body: data
-        });
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
-    }
-}
-
-export async function post(url, request) {
+export async function POST(url, request) {
     try {
         const response = await fetch(`${backendurl}${url}`, {
             method: 'POST',
@@ -40,7 +20,7 @@ export async function post(url, request) {
     }
 }
 
-export async function get(url, request = null) {
+export async function GET(url, request = null) {
     try {
         const uri = request ? '?' + new URLSearchParams(request).toString() : '';
         const response = await fetch(`${backendurl}${url}${uri}`, {
@@ -58,7 +38,7 @@ export async function get(url, request = null) {
     }
 }
 
-export async function patch(url, request) {
+export async function PATCH(url, request) {
     try {
         const response = await fetch(`${backendurl}${url}`, {
             method: 'PATCH',
@@ -77,7 +57,7 @@ export async function patch(url, request) {
     }
 }
 
-export async function deleteUser(request) {
+export async function DELETE(request) {
     try {
         const uri = request ? '?' + new URLSearchParams(request).toString() : '';
         const response = await fetch(`${backendurl}Usuarios${uri}`, {
