@@ -19,19 +19,19 @@ export const obtenerPropiedades = async (searchParams) => {
 };
 
 export const obtenerPropiedadPorId = async (propiedadId) => {
-    let url = `/propiedades/${propiedadId}`;
+    let url = `propiedades/${propiedadId}`;
     let response = await GET(url);
     return response;
 };
 
 export const eliminarPropiedad = async (propiedadId) => {
-    let url = `/propiedades/${propiedadId}`;
+    let url = `propiedades/${propiedadId}`;
     let response = await DELETE(url);
     return response;
 };
 
 export const actualizarPropiedad = async (propiedadId, updatePropiedadData) => {
-    let url = `/propiedades/${propiedadId}`;
+    let url = `propiedades/${propiedadId}`;
     let response = await PATCH(url, updatePropiedadData);
     return response;
 };
