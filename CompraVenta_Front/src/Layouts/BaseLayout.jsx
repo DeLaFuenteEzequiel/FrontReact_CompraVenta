@@ -1,4 +1,5 @@
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
 
 const BaseLayout = (props) => {
     // Verificar si el usuario está autenticado
@@ -10,21 +11,20 @@ const BaseLayout = (props) => {
     }
 
     return (
-        <section className="w-[100vw] flex justify-center">
-            <menu className="w-[100vw] h-[3rem] absolute bg-slate-500 shadow-sm flex justify-evenly items-center text-white">
-                {/* Mostrar enlaces solo si el usuario está autenticado */}
-                {isAuthenticated && (
-                    <>
-                         <Link to='/publicarPropiedad' replace={true}>Publicar Propiedad</Link>
-                        <Link to='/propiedades' replace={true}>Propiedades a la Venta</Link>
-                        <Link to='/propiedades' replace={true}>Mis Propiedades</Link>
-                    </>
-                )}
-            </menu>
+        <div className="w-[100vw]">
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="/inicio">Mi Aplicación</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Nav.Link href="/publicarPropiedad">Publicar Propiedad</Nav.Link>
+                    <Nav.Link href="/propiedades">Propiedades a la Venta</Nav.Link>
+                    <Nav.Link href="/misPropiedades">Mis Propiedades</Nav.Link>
+                </Nav>
+            </Navbar>
+
             <div className="mt-[4rem]">
                 {props.children}
             </div>
-        </section>
+        </div>
     );
 }
 

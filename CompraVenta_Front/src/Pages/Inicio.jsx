@@ -1,18 +1,20 @@
-    import React from 'react';
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
-    const Inicio = () => {
-        const logout = () => {
-            localStorage.removeItem('jwt');
-            window.location.href = '/';
-        };
+const Inicio = () => {
+    const logout = () => {
+        localStorage.removeItem('jwt');
+        window.location.href = '/';
+    };
 
-        return (
-            <div className="flex flex-col justify-center items-center">
-                <h1 className="text-4xl font-bold mb-8">Inicio</h1>
-                <button onClick={logout}>Cerrar sesión</button>
+    return (
+        <div className="d-flex flex-column align-items-center">
+            <h1 className="display-4 font-weight-bold mb-4">Inicio</h1>
+            <Button variant="danger" onClick={logout}>
+                Cerrar sesión
+            </Button>
+        </div>
+    );
+}
 
-            </div>
-        );
-    }
-
-    export default Inicio;
+export default Inicio;
