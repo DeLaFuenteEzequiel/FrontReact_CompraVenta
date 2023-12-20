@@ -16,23 +16,16 @@ const App = () => {
             if (localStorage.getItem('jwt')) {
               setIsLoged(true);
           
-              // Obtener el ID del usuario almacenado en localStorage
+              
               const userId = localStorage.getItem('userId');
               console.log('userId:', userId);
           
               if (userId) {
                 try {
-                  // Asegúrate de que esta llamada devuelve los datos del usuario correctamente
+                 
                   const userData = await getUserById(userId);
                   console.log('userData:', userData);
-          
-                  // Setear los datos del usuario en el estado
                   setUserInfo(userData);
-          
-                  // Agrega este console.log para verificar el userId antes de guardarlo en localStorage
-                  console.log('Guardando userId en localStorage:', userId);
-          
-                  // Guardar userId en localStorage
                   localStorage.setItem('userId', userId);
                 } catch (error) {
                   console.error('Error al obtener la información del usuario:', error);
@@ -70,7 +63,7 @@ const App = () => {
 
                         <Route
                             path="/publicarPropiedad"
-                            element={<BaseLayout children={<PublicarPropiedad />} />} // Agrega la ruta para /propiedades
+                            element={<BaseLayout children={<PublicarPropiedad userInfo={userInfo} />} />} // Agrega la ruta para /propiedades
                         />
 
                         
