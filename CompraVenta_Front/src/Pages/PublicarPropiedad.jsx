@@ -2,29 +2,29 @@ import React, { useState } from 'react';
 import { publicarPropiedad } from '../Services/PropiedadesService';
 
 const PublicarPropiedad = ({ userInfo }) => {
-    const [formData, setFormData] = useState({
-        titulo: '',
-        descripcion: '',
-        metrosCuadrados: '',
-        ambientes: '',
-        valor: '',
-        registro: userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : ''),
-      });
+  const [formData, setFormData] = useState({
+    titulo: '',
+    descripcion: '',
+    metrosCuadrados: '',
+    ambientes: '',
+    valor: '',
+    registro: userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : ''),
+  });
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async () => {
     try {
-      // Realiza la lógica para publicar la propiedad en tu backend
-      await publicarPropiedad({ ...formData, registro: userInfo.registro });
-      // Puedes redirigir o mostrar un mensaje de éxito aquí
+      const registro = userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : '');
+      await publicarPropiedad({ ...formData, registro });
       console.log('Propiedad publicada exitosamente');
     } catch (error) {
       console.error('Error al publicar la propiedad:', error);
-      // Puedes mostrar un mensaje de error aquí
     }
   };
+
 
   return (
     <div className="container mt-5">

@@ -11,8 +11,6 @@ export async function POST(url, request) {
             },
             body: JSON.stringify(request),
         };
-
-        // Agrega la autorización solo si hay un token almacenado
         const token = localStorage.getItem('jwt');
         if (token) {
             requestOptions.headers['Authorization'] = `Bearer ${token}`;
@@ -65,20 +63,27 @@ export async function PATCH(url, request) {
     }
 }
 
-export async function DELETE(request) {
+export async function DELETE(endpoint, request) {
     try {
-        const uri = request ? '?' + new URLSearchParams(request).toString() : '';
-        const response = await fetch(`${backendurl}Usuarios${uri}`, {
-            method: 'DELETE',
-            mode: 'cors',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}` || ''
-            }
-        });
-
-        return await response.json();
+      const uri = request ? '?' + new URLSearchParams(request).toString() : '';
+      const response = await fetch(`${backendurl}${endpoint}${uri}`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}` || ''
+        }
+      });
+  
+      // Verifica si la respuesta es un código de estado 204 (No Content)
+      if (response.status === 204) {
+        return null; // No hay contenido para analizar
+      }
+  
+      // Si no es un código de estado 204, analiza el cuerpo de la respuesta
+      return await response.json();
     } catch (error) {
-        console.error('Error:', error);
-        throw error;
+      console.error('Error:', error);
+      throw error;
     }
-}
+  }
+  
