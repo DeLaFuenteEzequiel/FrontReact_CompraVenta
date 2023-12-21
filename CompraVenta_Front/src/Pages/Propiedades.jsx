@@ -32,18 +32,18 @@ const Propiedades = ({ userInfo }) => {
             registro: userInfo.registro,
             publicacion:"asd",
           });
-          
-          // Loguea la respuesta para obtener más detalles del error
+
           console.log('Respuesta del servidor:', response);
-          
-          // Loguea los errores específicos si existen
+        
           if (response.errors && response.errors.interesado) {
             console.log('Errores de validación:', response.errors.interesado);
           }
+
     } catch (error) {
       console.error('Error al enviar el contacto:', error);
     }
   };
+  
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Propiedades Disponibles a la Venta</h2>
