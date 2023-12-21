@@ -1,4 +1,4 @@
-import { POST, GET, DELETE, PATCH } from './Httpr.js';
+import { POST, GET, DELETE, PUT } from './Httpr.js';
 
 export const publicarPropiedad = async (propiedadData) => {
     let url = 'propiedades';
@@ -31,7 +31,13 @@ export const eliminarPropiedad = async (propiedadId) => {
 };
 
 export const actualizarPropiedad = async (propiedadId, updatePropiedadData) => {
-    let url = `propiedades/${propiedadId}`;
-    let response = await PATCH(url, updatePropiedadData);
-    return response;
-};
+    try {
+      const url = `propiedades/${propiedadId}`;
+      const response = await PUT(url, updatePropiedadData);
+      return response;
+    } catch (error) {
+      console.error('Error al actualizar la propiedad:', error);
+      throw error;
+    }
+  };
+  

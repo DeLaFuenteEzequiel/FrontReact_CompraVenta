@@ -1,5 +1,5 @@
 
-import { POST, GET, DELETE, PATCH } from '../Services/Httpr.js';
+import { POST, GET, DELETE, PUT } from '../Services/Httpr.js';
 
 export const createUser = async (newUserData) => {
     let url = 'usuarios';

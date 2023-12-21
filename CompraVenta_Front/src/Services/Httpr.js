@@ -44,25 +44,31 @@ export async function GET(url, request = null) {
     }
 }
 
-export async function PATCH(url, request) {
+export async function PUT(url, request) {
     try {
-        const response = await fetch(`${backendurl}${url}`, {
-            method: 'PATCH',
-            mode: 'cors',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}` || '',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(request)
-        });
-
-        return await response.json();
+      const response = await fetch(`${backendurl}${url}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}` || '',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      });
+  
+      // Verifica si la respuesta es un código de estado 204 (No Content)
+      if (response.status === 204) {
+        return null; // No hay contenido para analizar
+      }
+  
+      // Si no es un código de estado 204, analiza el cuerpo de la respuesta
+      return await response.json();
     } catch (error) {
-        console.error('Error:', error);
-        throw error;
+      console.error('Error:', error);
+      throw error;
     }
-}
-
+  }
+  
 export async function DELETE(endpoint, request) {
     try {
       const uri = request ? '?' + new URLSearchParams(request).toString() : '';
