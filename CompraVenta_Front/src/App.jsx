@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import BaseLayout from "./Layouts/BaseLayout.jsx";v
+import BaseLayout from "./Layouts/BaseLayout.jsx";
 
 import Login from "./Pages/Login.jsx";
 import Inicio from "./Pages/Inicio.jsx";
@@ -33,7 +33,8 @@ const App = () => {
           console.error('userId es undefined');
         }
       }
-    };fetchUser();
+    };
+fetchUser();
   }, []);
 
   return (
@@ -59,6 +60,7 @@ const App = () => {
               path="/publicarPropiedad"
               element={<BaseLayout children={<PublicarPropiedad userInfo={userInfo} />} />}
             />
+            {/* Nueva ruta para MisPropiedades */}
             <Route
               path="/misPropiedades"
               element={<BaseLayout children={<MisPropiedades userInfo={userInfo} />} />}
