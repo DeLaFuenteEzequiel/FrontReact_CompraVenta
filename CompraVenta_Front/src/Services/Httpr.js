@@ -55,13 +55,10 @@ export async function PUT(url, request) {
         },
         body: JSON.stringify(request)
       });
-  
-      // Verifica si la respuesta es un código de estado 204 (No Content)
+
       if (response.status === 204) {
-        return null; // No hay contenido para analizar
+        return null; 
       }
-  
-      // Si no es un código de estado 204, analiza el cuerpo de la respuesta
       return await response.json();
     } catch (error) {
       console.error('Error:', error);
@@ -79,13 +76,10 @@ export async function DELETE(endpoint, request) {
           'Authorization': `Bearer ${localStorage.getItem('jwt')}` || ''
         }
       });
-  
-      // Verifica si la respuesta es un código de estado 204 (No Content)
       if (response.status === 204) {
-        return null; // No hay contenido para analizar
+        return null;
       }
-  
-      // Si no es un código de estado 204, analiza el cuerpo de la respuesta
+      
       return await response.json();
     } catch (error) {
       console.error('Error:', error);

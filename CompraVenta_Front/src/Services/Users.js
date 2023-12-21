@@ -30,7 +30,7 @@ export const deleteUser = async (userId) => {
 
 export const updateUserData = async (userId, updateUserData) => {
     let url = `usuarios/${userId}`;
-    let response = await PATCH(url, updateUserData);
+    let response = await PUT(url, updateUserData);
     return response;
 };
 

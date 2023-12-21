@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { LogInRequest } from '../Services/Session.js';
 import { Navigate } from 'react-router-dom';
+
 import { Form, Button } from 'react-bootstrap';
+
+import { LogInRequest } from '../Services/Session.js';
 import { getUserById } from '../Services/Users.js';
 
 const Login = (props) => {

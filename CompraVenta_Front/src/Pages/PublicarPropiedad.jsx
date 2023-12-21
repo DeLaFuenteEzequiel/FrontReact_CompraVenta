@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { publicarPropiedad } from '../Services/PropiedadesService';
 
 const PublicarPropiedad = ({ userInfo }) => {
@@ -10,12 +11,14 @@ const PublicarPropiedad = ({ userInfo }) => {
     valor: '',
     registro: userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : ''),
   });
+
   const [mensajeExito, setMensajeExito] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+//Limpia el Formulario luego de realizar el POST
   const limpiarFormulario = () => {
     setFormData({
       titulo: '',
@@ -27,8 +30,8 @@ const PublicarPropiedad = ({ userInfo }) => {
     });
   };
 
+  // Realiza validaciones del formulario 
   const submitHandler = async () => {
-    // Validaciones
     if (
       !formData.titulo ||
       !formData.descripcion ||
@@ -40,13 +43,10 @@ const PublicarPropiedad = ({ userInfo }) => {
       alert('Por favor, complete todos los campos y asegúrese de ingresar valores válidos.');
       return;
     }
-
     try {
       const registro = userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : '');
       await publicarPropiedad({ ...formData, registro });
-      console.log('Propiedad publicada exitosamente');
       setMensajeExito('Propiedad publicada exitosamente');
-      // Limpiar el formulario después de la publicación exitosa
       limpiarFormulario();
     } catch (error) {
       console.error('Error al publicar la propiedad:', error);
@@ -99,7 +99,6 @@ const PublicarPropiedad = ({ userInfo }) => {
         </button>
       </form>
 
-      {/* Mostrar el mensaje de éxito */}
       {mensajeExito && (
         <div className="mt-3 alert alert-success">
           {mensajeExito}

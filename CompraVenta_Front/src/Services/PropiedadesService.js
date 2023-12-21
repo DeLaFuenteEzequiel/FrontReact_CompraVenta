@@ -13,7 +13,6 @@ export const obtenerPropiedades = async (searchParams) => {
         return response;
     } catch (error) {
         console.error('Error al obtener propiedades:', error);
-        // Maneja el error de alguna manera (lanzar una excepción, devolver un objeto de error, etc.)
         throw error;
     }
 };

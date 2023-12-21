@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
+
 import { Table, Modal, Form, Button } from 'react-bootstrap';
-import { obtenerPropiedades, eliminarPropiedad, actualizarPropiedad } from '../Services/PropiedadesService.js';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+
+import { obtenerPropiedades, eliminarPropiedad, actualizarPropiedad } from '../Services/PropiedadesService.js';
 
 const MisPropiedades = ({ userInfo }) => {
   const [propiedades, setPropiedades] = useState([]);
   const [propiedadEditada, setPropiedadEditada] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  //Trae Propiedades segun sea Martillero o Dueño directo
   const fetchPropiedades = async () => {
     try {
       const response = await obtenerPropiedades();
+
       if (Array.isArray(response)) {
         let propiedadesFiltradas;
 
         if (userInfo.registro !== 0) {
-          // Si el registro no es 0, filtrar por registro
-          propiedadesFiltradas = response.filter(
-            (propiedad) => Number(propiedad.registro) === Number(userInfo.registro)
-          );
+          propiedadesFiltradas = response.filter( (propiedad) => Number(propiedad.registro) === Number(userInfo.registro));
         } else {
-          // Si el registro es 0, filtrar por dni
-          propiedadesFiltradas = response.filter(
-            (propiedad) => Number(propiedad.registro) === Number(userInfo.dni)
-          );
+          propiedadesFiltradas = response.filter((propiedad) => Number(propiedad.registro) === Number(userInfo.dni));
         }
-
         setPropiedades(propiedadesFiltradas);
+
       } else {
         console.error('Error al obtener propiedades: El formato de los datos no es el esperado');
       }
@@ -35,10 +33,9 @@ const MisPropiedades = ({ userInfo }) => {
     }
   };
 
-  useEffect(() => {
-    fetchPropiedades();
-  }, [userInfo]);
+  useEffect(() => {fetchPropiedades();}, [userInfo]);
 
+//Elimina la propiedad seleccionada
   const handleEliminar = async (propiedadId) => {
     const isConfirmed = window.confirm('¿Está seguro de eliminar su propiedad?');
 
@@ -52,12 +49,14 @@ const MisPropiedades = ({ userInfo }) => {
     }
   };
 
+  //Modificacion de una Propiedad
   const handleModificar = (propiedadId) => {
     const propiedadParaEditar = propiedades.find((propiedad) => propiedad.propiedadId === propiedadId);
     setPropiedadEditada(propiedadParaEditar);
     setShowModal(true);
   };
 
+  //Almacena la propiedad modificada 
   const handleGuardarCambios = async () => {
     try {
       await actualizarPropiedad(propiedadEditada.propiedadId, propiedadEditada);
@@ -74,14 +73,17 @@ const MisPropiedades = ({ userInfo }) => {
     <div className="container mt-4">
       {userInfo && (
         <div>
-          {userInfo.registro !== 0 ? (
-            <p>Numero de Registro: {userInfo.registro}</p>
-          ) : (
-            <p>Documento del Dueño Directo: {userInfo.dni}</p>
-          )}
+          { userInfo.registro !== 0      
+          ? 
+          ( <p>Numero de Registro: {userInfo.registro}</p>) 
+          : 
+          ( <p>Documento del Dueño Directo: {userInfo.dni}</p>)
+          }
         </div>
       )}
+
       <h2 className="mb-4">Mis Propiedades</h2>
+
       <Table striped bordered hover responsive>
         <thead>
           <tr>
@@ -119,18 +121,19 @@ const MisPropiedades = ({ userInfo }) => {
         </tbody>
       </Table>
 
-      {/* Modal de Edición */}
+      {/* Modal que se utiliza para la modificacion de la propiedad*/}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        onExited={fetchPropiedades}   // Recargar la página después de que el modal se cierra
+        onExited={fetchPropiedades}   
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Propiedad</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
-          {/* Formulario con campos prellenados */}
           <Form>
+
             <Form.Group controlId="formTitulo">
               <Form.Label>Título</Form.Label>
               <Form.Control
@@ -139,6 +142,7 @@ const MisPropiedades = ({ userInfo }) => {
                 onChange={(e) => setPropiedadEditada({ ...propiedadEditada, titulo: e.target.value })}
               />
             </Form.Group>
+
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
@@ -147,6 +151,7 @@ const MisPropiedades = ({ userInfo }) => {
                 onChange={(e) => setPropiedadEditada({ ...propiedadEditada, descripcion: e.target.value })}
               />
             </Form.Group>
+
             <Form.Group controlId="formValor">
               <Form.Label>Valor</Form.Label>
               <Form.Control
@@ -155,17 +160,23 @@ const MisPropiedades = ({ userInfo }) => {
                 onChange={(e) => setPropiedadEditada({ ...propiedadEditada, valor: e.target.value })}
               />
             </Form.Group>
-            {/* Agrega más campos según sea necesario */}
+
           </Form>
+
         </Modal.Body>
+
         <Modal.Footer>
+
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancelar
           </Button>
+
           <Button variant="primary" onClick={handleGuardarCambios}>
             Guardar Cambios
           </Button>
+
         </Modal.Footer>
+
       </Modal>
     </div>
   );
