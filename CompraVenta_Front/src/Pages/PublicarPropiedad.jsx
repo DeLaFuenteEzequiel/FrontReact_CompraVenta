@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { publicarPropiedad } from '../Services/PropiedadesService';
 
 const PublicarPropiedad = ({ userInfo }) => {
-  const [formData, setFormData] = useState({
-    titulo: '',
-    descripcion: '',
-    metrosCuadrados: '',
-    ambientes: '',
-    valor: '',
-    registro: userInfo ? userInfo.registro : '',
-  });
-
+    const [formData, setFormData] = useState({
+        titulo: '',
+        descripcion: '',
+        metrosCuadrados: '',
+        ambientes: '',
+        valor: '',
+        registro: userInfo && userInfo.registro !== 0 ? userInfo.registro : (userInfo ? userInfo.dni : ''),
+      });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
