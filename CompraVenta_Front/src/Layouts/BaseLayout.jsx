@@ -3,7 +3,6 @@ import { Navbar, Nav } from "react-bootstrap";
 
 const BaseLayout = (props) => {
     const isAuthenticated = !!localStorage.getItem('jwt');
-    
     if (!isAuthenticated) {
         return <Navigate to="/" />;
     }
