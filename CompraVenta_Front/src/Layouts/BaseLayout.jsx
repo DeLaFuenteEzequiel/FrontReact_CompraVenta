@@ -15,6 +15,7 @@ const BaseLayout = (props) => {
                     <Nav.Link href="/publicarPropiedad">Publicar Propiedad</Nav.Link>
                     <Nav.Link href="/propiedades">Propiedades a la Venta</Nav.Link>
                     <Nav.Link href="/misPropiedades">Mis Propiedades</Nav.Link>
+                    <Nav.Link href="/Interesados">Posibles Clientes</Nav.Link>
                 </Nav>
             </Navbar>
 
